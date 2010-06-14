@@ -9,7 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100614134756) do
+ActiveRecord::Schema.define(:version => 20100614155300) do
+
+  create_table "ads", :force => true do |t|
+    t.integer  "scan_id"
+    t.string   "url"
+    t.string   "link_url"
+    t.string   "adserver"
+    t.string   "page_md5",   :limit => 32
+    t.text     "inner_html"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "scans", :force => true do |t|
     t.string   "url"
