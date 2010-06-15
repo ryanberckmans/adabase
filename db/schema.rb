@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100614155300) do
+ActiveRecord::Schema.define(:version => 20100615115155) do
 
   create_table "ads", :force => true do |t|
     t.integer  "scan_id"
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(:version => 20100614155300) do
     t.string   "domain"
     t.string   "path"
     t.text     "html"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "screenshots", :force => true do |t|
+    t.integer  "scan_id"
+    t.string   "s3_key"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

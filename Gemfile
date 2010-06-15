@@ -16,6 +16,7 @@ end
 group :test do
   gem 'rspec'
   gem 'rspec-rails', '>= 2.0.0.beta.10'
+  gem 'rr'
   gem 'autotest'
   gem 'autotest-rails'
   gem 'webrat'
