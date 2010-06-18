@@ -4,7 +4,8 @@ class CreateAds < ActiveRecord::Migration
       t.integer :scan_id
       t.string :url
       t.string :link_url
-      t.string :adserver
+      t.string :target_url
+      t.string :adserver        # this can possibly become adserver_id
       t.string :page_md5, :limit => 32
       t.text :inner_html
 
