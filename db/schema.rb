@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100618174942) do
+ActiveRecord::Schema.define(:version => 20100621163057) do
 
   create_table "ad_images", :force => true do |t|
     t.integer  "ad_id"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(:version => 20100618174942) do
     t.integer  "scan_id"
     t.string   "url"
     t.string   "link_url"
+    t.string   "target_url"
     t.string   "adserver"
-    t.string   "page_md5",   :limit => 32
     t.text     "inner_html"
     t.datetime "created_at"
     t.datetime "updated_at"

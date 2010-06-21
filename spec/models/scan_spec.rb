@@ -12,13 +12,18 @@ describe Scan, "OpenStruct support" do
 
   def complex_os
     os = basic_os
-    os.matches = [
+    os.ads = [
                   OpenStruct.new({
                                    :inner_html => '<a href="something.com"></a>',
                                    :adserver   => 'foo.com',
                                    :link_url   => 'something.com',
                                    :url        => 'http://smashingmagazine.com/',
-                                   :page_md5   => '912ec803b2ce49e4a541068d495ab570',
+                                   :screenshot_info => OpenStruct.new({
+                                     :left =>   1,
+                                     :top =>    2,
+                                     :width =>  3,
+                                     :height => 4,
+                                                                      }),
                                  }),
                  ]
     os
@@ -33,6 +38,13 @@ describe Scan, "OpenStruct support" do
     s = Scan.from_open_struct complex_os
     s.save.should be_true
     s.ads.size.should == 1
+
+    ad_image = s.ads.first.ad_image
+    ad_image.should_not be_nil
+    ad_image.screen_xpos.should == complex_os.ads.first.screenshot_info.left
+    ad_image.screen_ypos.should == complex_os.ads.first.screenshot_info.top
+    ad_image.width.should == complex_os.ads.first.screenshot_info.width
+    ad_image.height.should == complex_os.ads.first.screenshot_info.height
   end
 
   it "can save associated screenshot" do
