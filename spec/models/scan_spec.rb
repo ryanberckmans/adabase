@@ -24,6 +24,7 @@ describe Scan, "OpenStruct support" do
                                      :width =>  3,
                                      :height => 4,
                                                                       }),
+                                   :target_url => 'bar.com',
                                  }),
                  ]
     os
@@ -38,6 +39,8 @@ describe Scan, "OpenStruct support" do
     s = Scan.from_open_struct complex_os
     s.save.should be_true
     s.ads.size.should == 1
+
+    s.ads.first.target_url.should == 'bar.com'
 
     ad_image = s.ads.first.ad_image
     ad_image.should_not be_nil

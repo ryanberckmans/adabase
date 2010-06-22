@@ -8,6 +8,9 @@ class Scan < ActiveRecord::Base
     attrs = os.marshal_dump
     ads = (attrs.delete(:ads) || []).map(&:marshal_dump)
     ads.each do |ad|
+      target = ad.delete(:target_location)
+      ad[:target_url] = target unless target.blank?
+      ad[:url] = os.url
       screenshot_info = ad.delete(:screenshot_info)
       if screenshot_info
         ad_image = screenshot_info.marshal_dump
