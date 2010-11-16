@@ -8,9 +8,9 @@ class Scan < ActiveRecord::Base
     attrs = os.marshal_dump
     ads = (attrs.delete(:ads) || []).map(&:marshal_dump)
     ads.each do |ad|
+      ad.delete(:element_type)
       target = ad.delete(:target_location)
       ad[:target_url] = target unless target.blank?
-      ad[:url] = os.url
       screenshot_info = ad.delete(:screenshot_info)
       if screenshot_info
         ad_image = screenshot_info.marshal_dump
@@ -21,6 +21,8 @@ class Scan < ActiveRecord::Base
         ad[:ad_image_attributes] = ad_image
       end
     end
+    attrs.delete(:date)
+    attrs.delete(:quantcast_rank)
     data = attrs.delete(:screenshot)
     attrs.merge!({:screenshot_attributes => {:data => data}}) if data
     new attrs.merge({:ads_attributes => ads})
