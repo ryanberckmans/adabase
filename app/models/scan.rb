@@ -21,7 +21,6 @@ class Scan < ActiveRecord::Base
         ad[:ad_image_attributes] = ad_image
       end
     end
-    attrs.delete(:date)
     attrs.delete(:quantcast_rank)
     data = attrs.delete(:screenshot)
     attrs.merge!({:screenshot_attributes => {:data => data}}) if data

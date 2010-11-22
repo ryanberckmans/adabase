@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101116173601) do
+ActiveRecord::Schema.define(:version => 20101122200717) do
 
   create_table "ad_images", :force => true do |t|
     t.integer  "ad_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20101116173601) do
     t.string   "title"
     t.integer  "page_width"
     t.integer  "page_height"
+    t.datetime "scan_time"
   end
 
   create_table "screenshots", :force => true do |t|
