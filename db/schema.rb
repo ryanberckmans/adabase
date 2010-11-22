@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(:version => 20101122211452) do
     t.string   "title"
     t.integer  "page_width"
     t.integer  "page_height"
-    t.datetime "scan_time",      :default => '2010-11-22 21:27:56'
-    t.boolean  "scan_completed", :default => true
+    t.datetime "scan_time"
+    t.boolean  "scan_completed", :default => false
   end
 
   create_table "screenshots", :force => true do |t|
