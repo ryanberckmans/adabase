@@ -1,6 +1,9 @@
 class AddScanTimeToScans < ActiveRecord::Migration
   def self.up
-    add_column :scans, :scan_time, :datetime
+    now = Time.now
+    change_table :scans do |t|
+      t.datetime :scan_time, :default => now
+    end
   end
 
   def self.down
