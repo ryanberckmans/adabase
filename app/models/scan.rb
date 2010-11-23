@@ -1,6 +1,7 @@
 class Scan < ActiveRecord::Base
   has_many :ads
   has_one :screenshot
+  belongs_to :domain
 
   accepts_nested_attributes_for :ads, :screenshot
 
@@ -21,9 +22,14 @@ class Scan < ActiveRecord::Base
         ad[:ad_image_attributes] = ad_image
       end
     end
-    attrs.delete(:quantcast_rank)
+
+    quantcast_rank = attrs.delete(:quantcast_rank)
+    domain_url = attrs.delete(:domain)
+    domain = Domain.find_or_create_by_url( domain_url ) { |d| d.quantcast_rank = quantcast_rank }
+    
     data = attrs.delete(:screenshot)
     attrs.merge!({:screenshot_attributes => {:data => data}}) if data
-    new attrs.merge({:ads_attributes => ads})
+    
+    new attrs.merge({:ads_attributes => ads, :domain => domain})
   end
 end
