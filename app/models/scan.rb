@@ -2,8 +2,9 @@ class Scan < ActiveRecord::Base
   has_many :ads
   has_one :screenshot
   belongs_to :domain
+  has_one :scan_fail
 
-  accepts_nested_attributes_for :ads, :screenshot
+  accepts_nested_attributes_for :ads, :screenshot, :scan_fail
 
   validates_presence_of :domain, :path
 
@@ -28,6 +29,9 @@ class Scan < ActiveRecord::Base
     quantcast_rank = attrs.delete(:quantcast_rank)
     domain_url = attrs.delete(:domain)
     domain = Domain.find_or_create_by_url( domain_url ) { |d| d.quantcast_rank = quantcast_rank }
+
+    exception = attrs.delete :exception
+    attrs.merge!({:scan_fail_attributes => { :backtrace => exception.backtrace, :message => exception.message } }) if exception
     
     data = attrs.delete(:screenshot)
     attrs.merge!({:screenshot_attributes => {:data => data}}) if data

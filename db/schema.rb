@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101123174726) do
+ActiveRecord::Schema.define(:version => 20101124152450) do
 
   create_table "ad_images", :force => true do |t|
     t.integer  "ad_id"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(:version => 20101123174726) do
   create_table "domains", :force => true do |t|
     t.string   "url"
     t.integer  "quantcast_rank"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "scan_fails", :force => true do |t|
+    t.integer  "scan_id"
+    t.text     "backtrace"
+    t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
