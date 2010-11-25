@@ -8,6 +8,12 @@ class Scan < ActiveRecord::Base
 
   validates_presence_of :domain, :path
 
+  def self.schedule( domain, path )
+    scan = new({ :path => path, :domain => Domain.find_or_create_by_url( domain ) })
+    raise unless scan.save
+    scan.id
+  end
+  
   def self.from_open_struct(os)
     attrs = os.marshal_dump
     ads = (attrs.delete(:ads) || []).map(&:marshal_dump)
