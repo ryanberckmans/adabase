@@ -14,7 +14,7 @@ class Scan < ActiveRecord::Base
     scan.id
   end
   
-  def self.from_open_struct(os)
+  def self.attrs_from_open_struct(os)
     attrs = os.marshal_dump
     ads = (attrs.delete(:ads) || []).map(&:marshal_dump)
     ads.each do |ad|
@@ -34,14 +34,17 @@ class Scan < ActiveRecord::Base
 
     quantcast_rank = attrs.delete(:quantcast_rank)
     domain_url = attrs.delete(:domain)
-    domain = Domain.find_or_create_by_url( domain_url ) { |d| d.quantcast_rank = quantcast_rank }
-
+    domain = Domain.find_by_url domain_url
+    raise "scan domain not found" unless domain
+    domain.quantcast_rank = quantcast_rank
+    raise unless domain.save
+    
     exception = attrs.delete :exception
     attrs.merge!({:scan_fail_attributes => { :backtrace => exception.backtrace, :message => exception.message } }) if exception
     
     data = attrs.delete(:screenshot)
     attrs.merge!({:screenshot_attributes => {:data => data}}) if data
     
-    new attrs.merge({:ads_attributes => ads, :domain => domain})
+    attrs.merge({:ads_attributes => ads, :domain => domain})
   end
 end
