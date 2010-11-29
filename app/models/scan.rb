@@ -9,8 +9,9 @@ class Scan < ActiveRecord::Base
   validates_presence_of :domain, :path
 
   def self.schedule( domain, path )
+    path = "/" unless path and path.length > 0
     scan = new({ :path => path, :domain => Domain.find_or_create_by_url( domain ) })
-    raise unless scan.save
+    raise "failed to save scheduled scan" unless scan.save
     scan.id
   end
   
