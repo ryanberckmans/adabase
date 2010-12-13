@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101124152450) do
+ActiveRecord::Schema.define(:version => 20101213151021) do
 
   create_table "ad_images", :force => true do |t|
     t.integer  "ad_id"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20101124152450) do
     t.boolean  "scan_completed", :default => false
     t.integer  "domain_id"
   end
+
+  add_index "scans", ["updated_at", "domain_id", "path"], :name => "scans_index", :unique => true
 
   create_table "screenshots", :force => true do |t|
     t.integer  "scan_id"
