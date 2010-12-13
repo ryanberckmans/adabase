@@ -4,6 +4,6 @@ class AddIndexToScans < ActiveRecord::Migration
   end
 
   def self.down
-    remove_index :scans, "scans_index"
+    remove_index :scans, :name => "scans_index"
   end
 end

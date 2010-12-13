@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101213151021) do
+ActiveRecord::Schema.define(:version => 20101213182051) do
 
   create_table "ad_images", :force => true do |t|
     t.integer  "ad_id"
@@ -61,7 +61,10 @@ ActiveRecord::Schema.define(:version => 20101213151021) do
     t.integer  "domain_id"
   end
 
-  add_index "scans", ["updated_at", "domain_id", "path"], :name => "scans_index", :unique => true
+  add_index "scans", ["domain_id"], :name => "index_scans_on_domain_id"
+  add_index "scans", ["id"], :name => "index_scans_on_id"
+  add_index "scans", ["path"], :name => "index_scans_on_path"
+  add_index "scans", ["updated_at"], :name => "index_scans_on_updated_at"
 
   create_table "screenshots", :force => true do |t|
     t.integer  "scan_id"
