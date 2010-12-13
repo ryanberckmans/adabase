@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101213182051) do
+ActiveRecord::Schema.define(:version => 20101213202223) do
 
   create_table "ad_images", :force => true do |t|
     t.integer  "ad_id"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20101213182051) do
     t.float    "screenshot_height"
     t.string   "format"
   end
+
+  add_index "ads", ["scan_id"], :name => "index_ads_on_scan_id"
 
   create_table "domains", :force => true do |t|
     t.string   "url"
