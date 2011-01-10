@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(:version => 20110110145136) do
   end
 
   add_index "scans", ["domain_id"], :name => "index_scans_on_domain_id"
-  add_index "scans", ["id"], :name => "index_scans_on_id"
+  add_index "scans", ["id"], :name => "index_scans_on_id", :unique => true
   add_index "scans", ["path"], :name => "index_scans_on_path"
   add_index "scans", ["scan_completed"], :name => "index_scans_on_scan_completed"
   add_index "scans", ["updated_at"], :name => "index_scans_on_updated_at"
