@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110110145136) do
+ActiveRecord::Schema.define(:version => 20110117185606) do
 
   create_table "ad_images", :force => true do |t|
     t.integer  "ad_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20110110145136) do
     t.string   "format"
   end
 
+  add_index "ads", ["id"], :name => "index_ads_on_id", :unique => true
   add_index "ads", ["scan_id"], :name => "index_ads_on_scan_id"
 
   create_table "domains", :force => true do |t|
@@ -42,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20110110145136) do
     t.datetime "updated_at"
   end
 
+  add_index "domains", ["id"], :name => "index_domains_on_id", :unique => true
+
   create_table "scan_fails", :force => true do |t|
     t.integer  "scan_id"
     t.text     "backtrace"
@@ -49,6 +52,9 @@ ActiveRecord::Schema.define(:version => 20110110145136) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "scan_fails", ["id"], :name => "index_scan_fails_on_id", :unique => true
+  add_index "scan_fails", ["scan_id"], :name => "index_scan_fails_on_scan_id", :unique => true
 
   create_table "scans", :force => true do |t|
     t.string   "path"
